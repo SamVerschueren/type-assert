@@ -1,5 +1,7 @@
 # type-assert
 
+[![Build Status](http://img.shields.io/travis/SamVerschueren/type-assert.svg)](https://travis-ci.org/SamVerschueren/type-assert)
+
 > Type assertion library for NodeJS.
 
 ## Installation
