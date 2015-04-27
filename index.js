@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Type assertion library for JavaScript.
+ * Type assertion library for NodeJS.
  *
  * @author Sam Verschueren      <sam.verschueren@gmail.com>
  * @since  27 April 2015
