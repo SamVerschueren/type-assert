@@ -15,15 +15,17 @@ npm install --save type-assert
 ```JavaScript
 var assert = require('type-assert');
 
-module.exports = function(id, msg) {
+module.exports = function(id, msg, active) {
     assert(id).is('Number');
     assert(msg).is('String');
+    assert(active).isOptional('Boolean')
 
     // Do the usual
 }
 ```
 
-If ```id``` or ```msg``` is not of the correct type, it will throw an error.
+If ```id``` or ```msg``` is not the correct type, it will throw an error. Because the ```active``` property is
+optional, it will only check the type if the value is not ```undefined```.
 
 ## Related
 

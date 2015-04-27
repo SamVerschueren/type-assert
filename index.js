@@ -17,6 +17,13 @@ module.exports = function(input) {
             if(!typeCheck(type, input)) {
                 throw new Error(input + ' is not of type ' + type);
             }
+        },
+        isOptional: function(type) {
+            if(input === undefined) {
+                return;
+            }
+
+            this.is(type);
         }
     };
 };
