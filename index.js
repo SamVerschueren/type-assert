@@ -8,14 +8,26 @@
  */
 
 // module dependencies
-var typeCheck = require('type-check').typeCheck;
+var util = require('util'),
+    typeCheck = require('type-check').typeCheck,
+    NestedErrorStacks = require('nested-error-stacks'),
+    objectAssign = require('object-assign');
+
+// Create custom TypeAssertError object
+function TypeAssertError(message, nested) {
+    NestedErrorStacks.call(this, message, nested);
+    objectAssign(this, nested, {nested: this.nested});
+};
+
+util.inherits(TypeAssertError, NestedErrorStacks);
+TypeAssertError.prototype.name = 'TypeAssertError';
 
 module.exports = function(input) {
 
     return {
         is: function(type) {
             if(!typeCheck(type, input)) {
-                throw new Error(input + ' is not of type ' + type);
+                throw new TypeAssertError(input + ' is not of type ' + type);
             }
         },
         isOptional: function(type) {
@@ -27,3 +39,5 @@ module.exports = function(input) {
         }
     };
 };
+
+module.exports.TypeAssertError = TypeAssertError;
