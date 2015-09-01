@@ -12,7 +12,7 @@ npm install --save type-assert
 
 ## Usage
 
-```JavaScript
+```javascript
 var assert = require('type-assert');
 
 module.exports = function(id, msg, active) {
