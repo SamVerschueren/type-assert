@@ -23,6 +23,9 @@
     "url": "https://github.com/SamVerschueren/type-assert/issues"
   },
   "homepage": "https://github.com/SamVerschueren/type-assert",
+  "files": [
+    "index.js"
+  ],
   "dependencies": {
     "nested-error-stacks": "^1.0.0",
     "object-assign": "^3.0.0",
