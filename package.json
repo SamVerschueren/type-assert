@@ -1,6 +1,6 @@
 {
   "name": "type-assert",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A run-time type assertion library for NodeJS.",
   "main": "index.js",
   "scripts": {
