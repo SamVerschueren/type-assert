@@ -1,48 +1,26 @@
-'use strict';
+import test from 'ava';
+import m from './';
 
-// module dependencies
-var chai = require('chai'),
-    assert = require('./');
+const fn = function (id) {
+	m(id).is('Number');
+};
 
-chai.should();
+const fnOptional = function (id) {
+	m(id).isOptional('Number');
+};
 
-describe('type-assert', function() {
+test('throw error if type is incorrect', t => {
+	t.throws(fn.bind(undefined, 'foo'), TypeError);
+});
 
-    function fn(id) {
-        assert(id).is('Number');
-    }
+test('not throws error if type is correct', t => {
+	t.doesNotThrow(fn.bind(undefined, 5));
+});
 
-    function fnOptional(id) {
-        assert(id).isOptional('Number');
-    }
+test('not throws error if parameter is optional and not provided', t => {
+	t.doesNotThrow(fnOptional.bind());
+});
 
-    it('Should throw an error if the type is not correct', function() {
-        (function() {
-            fn('hello');
-        }).should.throw(Error);
-    });
-    
-    it('Should throw a TypeAssertError if the type is not correct', function() {
-        (function() {
-            fn('hello');
-        }).should.throw(assert.TypeAssertError);
-    });
-
-    it('Should not throw an error if the type is not correct', function() {
-        (function() {
-            fn(5);
-        }).should.not.throw(assert.TypeAssertError);
-    });
-
-    it('Should not throw an error if the parameter is optional and the parameter is undefined', function() {
-        (function() {
-            fnOptional();
-        }).should.not.throw(assert.TypeAssertError);
-    });
-
-    it('Should throw an error if the parameter is optional but the type is not correct', function() {
-        (function() {
-            fnOptional('hello');
-        }).should.throw(assert.TypeAssertError);
-    });
+test('throw error if parameter is optional and type is incorrect', t => {
+	t.throws(fnOptional.bind(undefined, 'foo'), 'foo is not of type Number');
 });

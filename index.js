@@ -1,43 +1,19 @@
 'use strict';
+var typeCheck = require('type-check').typeCheck;
 
-/**
- * Type assertion library for NodeJS.
- *
- * @author Sam Verschueren      <sam.verschueren@gmail.com>
- * @since  27 April 2015
- */
+module.exports = function (input) {
+	return {
+		is: function (type) {
+			if (!typeCheck(type, input)) {
+				throw new TypeError(input + ' is not of type ' + type);
+			}
+		},
+		isOptional: function (type) {
+			if (input === undefined) {
+				return;
+			}
 
-// module dependencies
-var util = require('util'),
-    typeCheck = require('type-check').typeCheck,
-    NestedErrorStacks = require('nested-error-stacks'),
-    objectAssign = require('object-assign');
-
-// Create custom TypeAssertError object
-function TypeAssertError(message, nested) {
-    NestedErrorStacks.call(this, message, nested);
-    objectAssign(this, nested, {nested: this.nested});
+			this.is(type);
+		}
+	};
 };
-
-util.inherits(TypeAssertError, NestedErrorStacks);
-TypeAssertError.prototype.name = 'TypeAssertError';
-
-module.exports = function(input) {
-
-    return {
-        is: function(type) {
-            if(!typeCheck(type, input)) {
-                throw new TypeAssertError(input + ' is not of type ' + type);
-            }
-        },
-        isOptional: function(type) {
-            if(input === undefined) {
-                return;
-            }
-
-            this.is(type);
-        }
-    };
-};
-
-module.exports.TypeAssertError = TypeAssertError;
