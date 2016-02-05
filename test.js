@@ -1,13 +1,21 @@
 import test from 'ava';
 import m from './';
 
-const fn = function (id) {
-	m(id).is('Number');
-};
+function fn(input, optional) {
+	if (optional) {
+		m(input).isOptional('Number');
+	} else {
+		m(input).is('Number');
+	}
+}
 
-const fnOptional = function (id) {
-	m(id).isOptional('Number');
-};
+function fnFunction(input, fn) {
+	m(input).is(fn || (x => x > 10));
+}
+
+function biggerThenTen(x) {
+	return x > 10;
+}
 
 test('throw error if type is incorrect', t => {
 	t.throws(fn.bind(undefined, 'foo'), TypeError);
@@ -18,9 +26,15 @@ test('not throws error if type is correct', t => {
 });
 
 test('not throws error if parameter is optional and not provided', t => {
-	t.doesNotThrow(fnOptional.bind());
+	t.doesNotThrow(fn.bind(undefined, undefined, true));
 });
 
 test('throw error if parameter is optional and type is incorrect', t => {
-	t.throws(fnOptional.bind(undefined, 'foo'), 'foo is not of type Number');
+	t.throws(fn.bind(undefined, 'foo', true), 'foo is not of type Number');
+});
+
+test('validate function', t => {
+	t.throws(fnFunction.bind(undefined, 5), '5 did not pass the test');
+	t.throws(fnFunction.bind(undefined, 5, biggerThenTen), '5 did not pass the test of function `biggerThenTen`');
+	t.doesNotThrow(fnFunction.bind(undefined, 15));
 });

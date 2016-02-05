@@ -4,8 +4,19 @@ var typeCheck = require('type-check').typeCheck;
 module.exports = function (input) {
 	return {
 		is: function (type) {
-			if (!typeCheck(type, input)) {
-				throw new TypeError(input + ' is not of type ' + type);
+			var valid;
+			var err;
+
+			if (typeof type === 'function') {
+				err = input + ' did not pass the test' + (type.name && ' of function `' + type.name + '`');
+				valid = type(input);
+			} else {
+				err = input + ' is not of type ' + type;
+				valid = typeCheck(type, input);
+			}
+
+			if (!valid) {
+				throw new TypeError(err);
 			}
 		},
 		isOptional: function (type) {

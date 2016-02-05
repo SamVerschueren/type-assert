@@ -15,10 +15,11 @@ npm install --save type-assert
 ```javascript
 const assert = require('type-assert');
 
-function foo(id, msg, active) {
+function foo(id, msg, active, age) {
 	assert(id).is('Number');
 	assert(msg).is('String');
 	assert(active).isOptional('Boolean');
+	assert(age).is(x => x > 18);
 }
 
 try {
@@ -32,19 +33,19 @@ try {
 
 ## API
 
-### is(type)
+### is(match)
 
 Throw `TypeError` if the input is not of type `type`.
 
-### isOptional(type)
+### isOptional(match)
 
 Throw `TypeError` if the input is not of type `type`, only if the input is provided.
 
-#### type
+#### match
 
-Type: `string`
+Type: `string` `function`
 
-The [`type-check`](https://github.com/gkz/type-check) type.
+The [`type-check`](https://github.com/gkz/type-check) type or a test function that should return `true` if the assertion is successful.
 
 
 ## License
