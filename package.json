@@ -1,36 +1,29 @@
 {
   "name": "type-assert",
   "version": "2.1.0",
-  "description": "A run-time type assertion library for NodeJS.",
-  "main": "index.js",
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SamVerschueren/type-assert.git"
-  },
-  "keywords": [
-    "type",
-    "assert"
-  ],
+  "description": "A run-time type assertion library for NodeJS",
+  "license": "MIT",
+  "repository": "SamVerschueren/type-assert",
   "author": {
     "name": "Sam Verschueren",
     "email": "sam.verschueren@gmail.com"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SamVerschueren/type-assert/issues"
+  "main": "index.js",
+  "scripts": {
+    "test": "xo && ava"
   },
-  "homepage": "https://github.com/SamVerschueren/type-assert",
   "files": [
     "index.js"
+  ],
+  "keywords": [
+    "type",
+    "assert"
   ],
   "dependencies": {
     "type-check": "^0.3.2"
   },
   "devDependencies": {
     "ava": "*",
-    "xo": "*"
+    "xo": "0.16.0"
   }
 }
