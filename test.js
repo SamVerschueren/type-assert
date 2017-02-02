@@ -9,8 +9,11 @@ function fn(input, optional) {
 	}
 }
 
+function biggerThenTen(x) {
+	return x > 10;
+}
+
 const fnFunction = (input, fn) => m(input).is(fn || (x => x > 10));
-const biggerThenTen = x => x > 10;
 
 test('throw error if type is incorrect', t => {
 	t.throws(fn.bind(undefined, 'foo'), TypeError);
